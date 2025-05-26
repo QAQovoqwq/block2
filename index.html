@@ -4,15 +4,117 @@
   <head>
     <meta charset="utf-8">
     <title>London Rent Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5.collide2d"></script>
     <script src="sketch.js"></script>
     <script src="sketch2.js"></script>
-  
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+      <style>
+    body {
+      font-family: sans-serif;
+      background-color: #121f40; 
+      color: white;              
+    }
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent; 
+    }
+    .sticky-canvas {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 0;
+    }
+    .overlay {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      z-index: 10;
+      max-width: 500px;
+    }
+
+  </style>
+
   </head>
   <body>
-    <div id="chart1"></div>
+    
     <div id="chart2"></div>
+    
+     <!-- 第一幕 -->
+  <section class="section bg-white">
+    <div class="text-center max-w-xl">
+      <h1 class="text-4xl font-bold mb-4">她搬进了伦敦</h1>
+      <p class="text-lg">带着对新生活的期待，她开始了租房之旅。</p>
+    </div>
+  </section>
+
+  <!-- 第二幕 -->
+  <section class="section bg-gray-200 relative">
+    <div class="sticky-canvas">
+      <div id="map-sketch"></div>
+    </div>
+    <div class="overlay text-white">
+      <h2 class="text-3xl font-bold">伦敦租金地图</h2>
+      <p class="mt-2">颜色越深，租金越高。她正站在人生的十字路口。</p>
+    </div>
+    <div id="chart1"></div>   <!-- chart-1 -->
+  </section>
+
+  <!-- 第三幕 -->
+  <section class="section bg-white">
+    <div class="max-w-xl text-center">
+      <h2 class="text-2xl font-bold">她的选择</h2>
+      <p>她要做出选择：住得远些更便宜，还是靠近市中心但租金飙升？</p>
+      <iframe height="1000px" width="100%" 
+    src="https://www.ons.gov.uk/visualisations/dvc3068/fig06/index.html">
+    </iframe> <!-- chart-2 -->
+    </div>
+    
+  </section>
+
+  <script>
+    const sketch = (p) => {
+      let rents;
+
+      p.preload = () => {
+        rents = p.loadJSON("london_rent_2025_one_bed.json");
+      };
+
+      p.setup = () => {
+        let canvas = p.createCanvas(window.innerWidth, window.innerHeight);
+        canvas.parent("map-sketch");
+        p.noLoop();
+      };
+
+      p.draw = () => {
+        p.background("#121f40");
+
+        const boroughs = Object.keys(rents);
+        for (let i = 0; i < boroughs.length; i++) {
+          let rent = rents[boroughs[i]];
+          let x = (i % 8) * 120 + 60;
+          let y = Math.floor(i / 8) * 100 + 100;
+          let radius = p.map(rent, 800, 3000, 10, 80);
+          p.fill(255, 100, 100, 200);
+          p.noStroke();
+          p.ellipse(x, y, radius);
+
+          p.fill(255);
+          p.textSize(12);
+          p.textAlign(p.CENTER);
+          p.text(boroughs[i], x, y + radius / 2 + 14);
+        }
+      };
+    };
+
+    new p5(sketch);
+  </script>
+
     
   </body>
 </html>

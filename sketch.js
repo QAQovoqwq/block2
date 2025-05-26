@@ -9,7 +9,7 @@ const sketch1 = (p) => {
   };
 
   p.setup = () => {
-    let canvas = p.createCanvas(1000, 1000);
+    let canvas = p.createCanvas(2000, 1000);
     canvas.parent("chart1"); 
     p.noLoop();
   };
@@ -19,6 +19,7 @@ const sketch1 = (p) => {
     hoveredBorough = null;
 
     p.translate(p.width / 2, p.height / 2);
+    p.scale(0.75);
 
     for (let feature of mapData.features) {
       if (isMouseNearFeature(feature)) {
