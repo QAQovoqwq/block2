@@ -9,7 +9,7 @@ const sketch1 = (p) => {
   };
 
   p.setup = () => {
-    let canvas = p.createCanvas(2000, 1000);
+    let canvas = p.createCanvas(1000, 1000);
     canvas.parent("chart1"); 
     p.noLoop();
   };

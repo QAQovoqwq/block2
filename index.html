@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5.collide2d"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+
+
     <script src="sketch.js"></script>
     <script src="sketch2.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -16,12 +22,20 @@
   />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     
-    
+    <!--style.css-->
     <style>
     body {
       font-family: sans-serif;
       background-color: #121f40; 
       color: white;              
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      font-family: sans-serif;
     }
     .section {
       min-height: 100vh;
@@ -44,12 +58,54 @@
       max-width: 500px;
     }
 
+    .step {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .graphic {
+      position: sticky;
+      top: 10%;
+      width: 300px;
+    }
+
+  .fade-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  .fade-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .step.is-active .fade-text {
+    opacity: 1;
+  }
+
+    #map-container {
+      height: 60vh;
+      margin: 100px auto;
+      width: 90%;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
   </style>
 
   </head>
   <body>
-     <div id="map" style="height: 60vh; width: 80vw; margin: 0 auto;"></div><!--绿地地图大小 -->
+
+    <!--
+     <div class=" " id="map" style="height: 60vh; width: 60vw; margin: 0 auto;"></div>   绿地地图大小 -->
     <!--绿地地图缩放 const map = L.map('map').setView([51.505, -0.09], X );-->
+  <!--
   <script>
     const map = L.map('map').setView([51.505, -0.09], 10); 
     
@@ -86,33 +142,141 @@
                           '#f46d43';
     }
   </script>
+-->
 
-
-    <div id="chart2"></div>
-    
-     <!-- 第一幕 -->
-  <section class="section bg-white">
-    <div class="text-center max-w-xl">
-      <h1 class="text-4xl font-bold mb-4">她搬进了伦敦</h1>
-      <p class="text-lg">带着对新生活的期待，她开始了租房之旅。</p>
+  <section class="section" style="background:#121f40; color:white;">
+    <div>
+      <h1 style="font-size:2.5rem;">她努力了</h1>
+      <p>无数个夜晚的学习，换来了一纸学历</p>
     </div>
   </section>
+
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <script>
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoicWFxb3ZvcXdxIiwiYSI6ImNtYmJqeXFwZzEyMG4ybHF1Z2xsNDFrM3IifQ.XWIUqmjrfxNA8rYM_x1yfg';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/dark-v11',
+      center: [-0.1, 51.5],
+      zoom: 9,
+      pitch: 0,
+      bearing: 0
+    });
+map.on('load', () => {
+  
+    map.scrollZoom.disable();
+
+    
+      map.addSource('rent', {
+        type: 'geojson',
+        data: 'london_rent_2025_merged.geojson'
+      });
+
+      map.addLayer({
+        id: '3d-rent',
+        type: 'fill-extrusion',
+        source: 'rent',
+        paint: {
+          'fill-extrusion-color': [
+            'interpolate',
+            ['linear'],
+            ['get', 'rent'],
+            1000, '#99D0D9',
+            3000, '#4D6782'
+          ],
+          'fill-extrusion-height': ['get', 'rent'],
+          'fill-extrusion-opacity': 0.9
+        }
+      });
+      });
+
+      // 使用 GSAP ScrollTrigger 控制 pitch 变化
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to(map, {
+        pitch: 60,
+        zoom: 10,
+        scrollTrigger: {
+          trigger: "#map-container",
+          start: "top center",
+          end: "bottom center",
+          scrub: true
+        },
+        onUpdate: () => {
+          map.setPitch(map.pitch);
+        }
+      });
+    
+  </script>
+
+
+  <!-- 第一幕 -->
+  <!-- 尝试渐入渐出效果 只需要加入fade-text即可,opacity-0 避免页面初始时闪现文字-->
+  <section class="section bg-white flex justify-center items-center min-h-screen">
+    <div class="fade-text opacity-0 text-center max-w-xl">
+      <h1 class="text-4xl font-bold mb-4">他努力了</h1>
+      <img src="photo/ea4a0c80ca7b0b454635913622e3e2bc.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
+
+    </div>
+  </section>
+    <!--<div class="fade-text" id="chart2"></div>    -->
+
+      <div class="fade-text text-2xl font-bold text-white max-w-xl">
+        <p>无数个清晨,她早早起床,背着沉重的书包,在补习班与公交车之间奔波</p>
+        <img src="photo/e8083310c7ff20b61fd00ce908f2ce01.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
+
+      </div>
+    </section>
+    
+     
+  <section class="section bg-white">
+    <div class="fade-text opacity-0 text-center max-w-xl">
+      <h1 class="text-4xl font-bold mb-4">他成功了</h1>
+      <p class="text-lg">他考上了名校,走上了别人眼中的"正轨"</p>
+      <img src="photo/dc2d7f1ad8a321adba20a1c01fcdb5f4.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
+    </div>
+  </section>
+
+
+   <section class="section bg-white">
+    <div class="fade-text opacity-0 text-center max-w-xl">
+      <h1 class="text-4xl font-bold mb-4">他找到了体面的工作</h1>
+      <p class="text-lg">写字楼,咖啡,美好的未来生活在向她招手</p>
+      <img src="photo/f0a0ed38ead9d37b464a4299d5611987.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
+    </div>
+  </section>
+
+     <section class="section bg-white">
+    <div class="fade-text opacity-0 text-center max-w-xl">
+      <p class="text-lg">但他,依然被城市拒之门外</p>
+      <img src="photo/e99fba8c601ff2cc7fe116dd6fc826d5.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
+    </div>
+  </section>
+
 
   <!-- 第二幕 -->
-  <section class="section bg-gray-200 relative">
-    <div class="sticky-canvas">
-      <div id="map-sketch"></div>
+  <section class="section bg-white">
+    <div class="fade-text opacity-0 max-w-xl text-center">
+      <div id="text-2xl font-bold"></div>
     </div>
-    <div class="overlay text-white">
-      <h2 class="text-3xl font-bold">伦敦租金地图</h2>
-      <p class="mt-2">颜色越深，租金越高。她正站在人生的十字路口。</p>
-    </div>
-    <div id="chart1"></div>   <!-- chart-1 -->
+    <div class="fade-text opacity-0 text-white max-w-md">
+      <p class="mt-2">租金过高,首付遥远,住房像一扇永远打不开的门</p>
+
+    </div><!-- 文字 -->
   </section>
 
+  <section>
+  <div class="mt-8 md:mt-0 w-full md:w-[60%] lg:w-[65%] mx-auto">
+    <div id="chart1" class="fade-text w-full h-[600px]"></div>   <!-- chart-1 -->
+    </div>
+  </section>
+  
   <!-- 第三幕 -->
   <section class="section bg-white">
-    <div class="max-w-xl text-center">
+    <div class="fade-text opacity-0 max-w-xl text-center">
       <h2 class="text-2xl font-bold">她的选择</h2>
       <p>她要做出选择：住得远些更便宜，还是靠近市中心但租金飙升？</p>
       <iframe height="1000px" width="100%" 
@@ -121,45 +285,98 @@
     </div>
     
   </section>
+  <section> 
 
-  <script>
-    const sketch = (p) => {
-      let rents;
+    <div class=" max-w-xl text-center">
+      <p>---------------------------------------</p>
+    </div>
+    <img src="013-woman.png" alt="描述文字" class=""style="width: 300px; height: auto; display: block; margin: 0 auto;"  />
+  </section>
+  
+  
+  <section class="step">
+  <div class="text fade-text">她努力了。</div>
+  <img src="013-woman.png" class="graphic" />
+</section>
 
-      p.preload = () => {
-        rents = p.loadJSON("london_rent_2025_one_bed.json");
-      };
+<section class="step">
+  <div class="text fade-text">她成功了，走上了“正轨”。</div>
+  <img src="013-woman.png" class="graphic" />
+</section>
 
-      p.setup = () => {
-        let canvas = p.createCanvas(window.innerWidth, window.innerHeight);
-        canvas.parent("map-sketch");
-        p.noLoop();
-      };
+<!-- 屏幕1：努力了 -->
+<section class="min-h-screen flex items-center justify-center bg-[#121f40] text-white fade-text">
+  <div class="text-center px-4">
+    <h2 class="text-4xl font-bold mb-6">她努力了</h2>
+    <p class="text-lg">图书馆灯火通明的夜晚，一页一页啃下的书本。</p>
+    <img src="assets/study.svg" alt="努力学习" class="mx-auto mt-6 w-1/2 max-w-sm">
+  </div>
+</section>
 
-      p.draw = () => {
-        p.background("#121f40");
+<!-- 屏幕2：成功了 -->
+<section class="min-h-screen flex items-center justify-center bg-[#121f40] text-white fade-text">
+  <div class="text-center px-4">
+    <h2 class="text-4xl font-bold mb-6">她成功了</h2>
+    <p class="text-lg">成为年级前1%的学生，赢得了奖学金与掌声。</p>
+    <img src="assets/graduation.svg" alt="毕业成功" class="mx-auto mt-6 w-1/2 max-w-sm">
+  </div>
+</section>
 
-        const boroughs = Object.keys(rents);
-        for (let i = 0; i < boroughs.length; i++) {
-          let rent = rents[boroughs[i]];
-          let x = (i % 8) * 120 + 60;
-          let y = Math.floor(i / 8) * 100 + 100;
-          let radius = p.map(rent, 800, 3000, 10, 80);
-          p.fill(255, 100, 100, 200);
-          p.noStroke();
-          p.ellipse(x, y, radius);
+<!-- 屏幕3：体面工作 -->
+<section class="min-h-screen flex items-center justify-center bg-[#121f40] text-white fade-text">
+  <div class="text-center px-4">
+    <h2 class="text-4xl font-bold mb-6">她找到了一份体面的工作</h2>
+    <p class="text-lg">朝九晚五、打卡办公楼。薪资稳定，梦想似乎照进现实。</p>
+    <img src="assets/office.svg" alt="办公室工作" class="mx-auto mt-6 w-1/2 max-w-sm">
+  </div>
+</section>
 
-          p.fill(255);
-          p.textSize(12);
-          p.textAlign(p.CENTER);
-          p.text(boroughs[i], x, y + radius / 2 + 14);
-        }
-      };
-    };
 
-    new p5(sketch);
-  </script>
 
+<!-- --------------------------------------------- -->
+<!-- 淡入淡出动画 -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray(".fade-text").forEach((elem) => {
+    gsap.fromTo(
+      elem,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: elem,
+          start: "top 80%",
+          end: "top 20%",
+          toggleActions: "play reverse play reverse",
+        },
+      }
+    );
+  });
+</script>
+
+<!-- step 激活高亮 -->
+<script>
+  const steps = document.querySelectorAll(".step");
+
+  const stepObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        steps.forEach(step => step.classList.remove("is-active"));
+        entry.target.classList.add("is-active");
+      }
+    });
+  }, { threshold: 0.5 });
+
+  steps.forEach(step => stepObserver.observe(step));
+</script>
+
+
+
+<div style="height: 50vh;"></div><!--半页空白-->
     
   </body>
 </html>
