@@ -216,3 +216,23 @@ margin-right: auto;
 .bottom-layer {
   z-index: 20;
 }
+
+#center-photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5; /* 可根据需求设定在canvas或地图之上 */
+  width: 10px; /* 或其他固定值或百分比 */
+  pointer-events: none; /* 可选，确保不拦截鼠标 */
+}
+
+#center-bubble4-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  z-index: 5; /* 可根据需求设定在canvas或地图之上 */
+  width: 20px; /* 或其他固定值或百分比 */
+  pointer-events: none; /* 可选，确保不拦截鼠标 */
+}
