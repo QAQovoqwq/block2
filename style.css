@@ -109,17 +109,6 @@ border-right: 10px solid #fff;
 .gap-lg { margin-bottom: 60px; }
 .gap-big {margin-bottom: 64px; }
 
-#map-container {
-height: 60vh;
-margin: 100px auto;
-width: 90%;
-}
-#map {
-height: 100%;
-width: 100%;
-border-radius: 12px;
-box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
 
 #character {
 position: fixed;
@@ -132,3 +121,98 @@ transition: opacity 0.8s ease, transform 0.8s ease;
 z-index: 10;
 }
 
+
+
+/* 漂浮动画 */
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-100px); }
+  100% { transform: translateY(0px); }
+}
+
+
+.float-image {
+  position: absolute;
+  width: 200px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.8s ease;
+  pointer-events: none;
+}
+
+/* 位置示例 */
+.img1 { top: -300px; left: 50%; }
+.img2 { bottom: -300px; right: -300px; }
+.img3 { bottom: -400px; left:0px; transform: translateX(-50%) scale(0.5); }
+.img4 { top: -300px; left: -300px; }
+.img5 { top: -300px; right: -300px; }
+.img6 { bottom: -400px; left: 60%; transform: translateX(-50%) scale(0.5); }
+
+/* 显示动画类 */
+.float-image.show {
+  opacity: 1;
+  transform: scale(1);
+  animation: float 3s ease-in-out infinite;
+}
+
+
+#map-container {
+height: 60vh;
+margin: 100px auto;
+width: 100%;
+}
+
+#map {
+height: 90%;
+width: 90%;
+border-radius: 12px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+margin-left: auto;
+margin-right: auto;
+
+}
+
+
+#city-scene {
+  position: relative;
+  height: 120vh;
+  background: #121f40;
+  overflow: hidden;
+}
+
+#girl-container {
+  position: sticky;
+  top: 50%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+#girl {
+  width: 100%;
+  top: 50%;
+}
+
+.buildings {
+  position: absolute;
+  width: 100%;
+  top: 80%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5%;
+}
+.building {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1); /* 初始缩小居中 */
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* 图层顺序控制 */
+.top-layer {
+  z-index: 1;
+}
+.bottom-layer {
+  z-index: 20;
+}

@@ -69,53 +69,65 @@
     }
   </script>
 -->
-    <div id="character">
-      <img src="IMG_0407.GIF"  alt="character" >
-    </div>
+
+<!-- part1 -->
+  <div id="character">
+    <img src="IMG_0407.GIF"  alt="character" >
+    <img src="photo/hat.png" class="float-image img1 group1" />
+    <img src="photo/plant.png" class="float-image img2 group1" />
+    <img src="photo/money.png" class="float-image img3 group1" />
+
+    <img src="photo/london.png" class="float-image img4 group2" />
+    <img src="photo/pen.png" class="float-image img5 group2" />
+    <img src="photo/pound.png" class="float-image img6 group2" />
+  </div>
+
+  
 
 
-    <section class="section chat" id="bubble1" >
-      <div class="bubble chat-block">她叫Sophie</div>
-    </section>
+  <section class="section chat" id="bubble1" >
+    <div class="bubble chat-block">她叫Sophie</div>
+  </section>
 
-    <section class="section chat" id="bubble2">
-      <div class="bubble chat-block">她不是失败者</div>
-    </section>
+  <section class="section chat" id="bubble2">
+    <div class="bubble chat-block">她不是失败者</div>
+  </section>
 
-    <section class="section chat" id="bubble3">
-      <div class="bubble chat-block">她做了她该做的一切</div>
-    </section>
+  <section class="section chat" id="bubble3">
+    <div class="bubble chat-block">她做了她该做的一切</div>
+  </section>
 
+  <section class="section chat" id="bubble4">
+    <div class="bubble chat-block">她在郊区长大 家里不富裕父母关系紧张</div>
+  </section>
 
+  <section class="section chat" id="bubble5">
+    <div class="bubble chat-block">他考上了一所好大学 成绩稳定 努力申请奖学金</div>
+  </section>
+
+  <section class="section chat" id="bubble6">
+    <div class="bubble chat-block">暑假打工也没有耽误论文</div>
+  </section>
+
+  <section class="section chat" id="bubble7">
+    <div class="bubble chat-block">他毕业后被一家London的公司录用</div>
+  </section>
+
+  <section class="section chat" id="bubble8">
+    <div class="bubble chat-block">一份她梦想中的UX设计师的工作</div>
+  </section>
+
+  <section class="section chat" id="bubble9">
+    <div class="bubble chat-block">工资不高,但比老家已经好太多了</div>
+  </section>
+
+  <section class="section chat" id="bubble10">
+    <div class="bubble chat-block">现在,问题只剩下一个,她要住哪里</div>
+  </section>
     
   <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  // // 控制角色出现
-  // gsap.to("#character", {
-  //   opacity: 1,
-  //   y: 0,
-  //   scrollTrigger: {
-  //     trigger: "#scene-1",
-  //     start: "top center",
-  //     end: "bottom center",
-  //     scrub: true
-  //   }
-  // });
-
-  // // 控制角色离开
-  // gsap.to("#character", {
-  //   opacity: 0,
-  //   y: -50,
-  //   scrollTrigger: {
-  //     trigger: "#scene-3",
-  //     start: "top center",
-  //     end: "bottom center",
-  //     scrub: true
-  //   }
-  // });
-  
-  // 角色淡入：bubble1 出现时
   gsap.to("#character", {
     opacity: 1,
     y: 0,
@@ -135,7 +147,7 @@
     duration: 0.8,
     ease: "power2.out",
     scrollTrigger: {
-      trigger: "#bubble3",
+      trigger: "#bubble10",
       start: "bottom center",   // bubble3 底部到达中心时开始隐藏
       toggleActions: "play none none reverse"
     }
@@ -155,13 +167,85 @@
       }
     });
   });
-
-  </script>
   
-  <!--
+  // 显示 png1（bubble4）
+  ScrollTrigger.create({
+    trigger: "#bubble4",
+    start: "top center",
+    onEnter: () => document.querySelector(".img1").classList.add("show"),
+    onLeaveBack: () => document.querySelector(".img1").classList.remove("show")
+  });
+
+  // 显示 png2（bubble5）
+  ScrollTrigger.create({
+    trigger: "#bubble5",
+    start: "top center",
+    onEnter: () => document.querySelector(".img2").classList.add("show"),
+    onLeaveBack: () => document.querySelector(".img2").classList.remove("show")
+  });
+
+  // 显示 png3（bubble6）
+  ScrollTrigger.create({
+    trigger: "#bubble6",
+    start: "top center",
+    onEnter: () => document.querySelector(".img3").classList.add("show"),
+    onLeaveBack: () => document.querySelector(".img3").classList.remove("show")
+  });
+
+  // bubble6 离开时全部隐藏
+  ScrollTrigger.create({
+    trigger: "#bubble6",
+    start: "bottom 90%",
+    onLeave: () => {
+      document.querySelectorAll(".group1").forEach(el => el.classList.remove("show"));
+    }
+  });
+  //--------------
+  // 显示 png4（bubble7）
+  ScrollTrigger.create({
+    trigger: "#bubble7",
+    start: "top center",
+    onEnter: () => document.querySelector(".img4").classList.add("show"),
+    onLeaveBack: () => document.querySelector(".img4").classList.remove("show")
+  });
+
+  // 显示 png5（bubble8）
+  ScrollTrigger.create({
+    trigger: "#bubble8",
+    start: "top center",
+    onEnter: () => document.querySelector(".img5").classList.add("show"),
+    onLeaveBack: () => document.querySelector(".img5").classList.remove("show")
+  });
+
+  // 显示 png6（bubble9）
+  ScrollTrigger.create({
+    trigger: "#bubble9",
+    start: "top center",
+    onEnter: () => document.querySelector(".img6").classList.add("show"),
+    onLeaveBack: () => document.querySelector(".img6").classList.remove("show")
+  });
+
+  // bubble9 离开时全部隐藏
+  ScrollTrigger.create({
+    trigger: "#bubble9",
+    start: "bottom bottom",
+    onLeave: () => {
+      document.querySelectorAll(".group2").forEach(el => el.classList.remove("show"));
+    }
+  });
+  </script>
+
+
+<!-- part2 -->
+<section class="section">
+  <section class="chat" id="bubble2-1">
+    <div class="bubble chat-block">她打开租房平台,看到价格密密麻麻分布在地图上</div>
+  </section>
+  
   <div id="map-container">
     <div id="map"></div>
-  </div>    -->
+  </div>
+</section>
 
   <script>  
     // 地图map-container
@@ -220,6 +304,66 @@ map.on('load', () => {
     
   </script>
 
+  <!-- part3 -->
+  <section class="section chat" id="bubble3-1">
+    <div class="bubble chat-block">而她的收入是￡1850/月/最多用其中30%用于交房租</div>
+  </section>
+
+  <section id="city-scene">
+
+    <div class="buildings top-layer">
+      <img src="photo/building-left-top.png" class="building building-left-top building-left" />
+      <img src="photo/building-right-top.png" class="building building-right-top building-right" />
+    </div>
+
+    <div id="girl-container">
+      <img src="photo/girlback.png" id="girl" />
+    </div>
+
+    <div class="buildings bottom-layer">
+      <img src="photo/building-bottom-left.png" class="building building-bottom-left building-left" />
+      <img src="photo/building-bottom-right.png" class="building building-bottom-right building-right" />
+    </div>
+  </section>
+
+
+  
+  
+  <script>
+    // 初始偏移（x, y 不同方向）
+    gsap.set(".building-left-top",     { x: -300, y: 0 });
+    gsap.set(".building-right-top",    { x: 300, y: 0 });
+    gsap.set(".building-bottom-left",  { x: -300, y: 300 });
+    gsap.set(".building-bottom-right", { x: 300, y: 300 });
+
+    // 当进入场景时 → 全部飞入中心（x:0, y:0）
+    ScrollTrigger.create({
+      trigger: "#city-scene",
+      start: "top center",
+      end: "bottom center",
+      onEnter: () => {
+        gsap.to(".building-left-top",     { x: 0, y: 0, opacity: 1, duration: 1 });
+        gsap.to(".building-right-top",    { x: 0, y: 0, opacity: 1, duration: 1 });
+        gsap.to(".building-bottom-left",  { x: 0, y: 0, opacity: 1, duration: 1 });
+        gsap.to(".building-bottom-right", { x: 0, y: 0, opacity: 1, duration: 1 });
+      },
+      onLeaveBack: () => {
+        gsap.to(".building", { opacity: 0 });
+      }
+    });
+
+  </script>
+
+  <!-- part4 -->
+
+
+  <section id="chart1-section" style="height: 200vh; position: relative;">
+    <div id="chart1" style="position: sticky; top: 0; height: 100vh;"></div>
+  </section>
+
+
+
+<!-- --------------------------------------------- -->
   <script> 
   //气泡渐隐效果
     gsap.utils.toArray(".chat-block").forEach((block) => {
@@ -238,109 +382,6 @@ map.on('load', () => {
     });
   });
   </script>
-
-
-  <!-- 第一幕 -->
-  <!-- 尝试渐入渐出效果 只需要加入fade-text即可,opacity-0 避免页面初始时闪现文字-->
-  <section class="section  flex justify-center items-center min-h-screen">
-    <div class="fade-text opacity-0 text-center max-w-xl">
-      <h1 class="text-4xl font-bold mb-4">他努力了</h1>
-      <img src="photo/ea4a0c80ca7b0b454635913622e3e2bc.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
-
-    </div>
-  </section>
-    <!--<div class="fade-text" id="chart2"></div>    -->
-
-      <div class="fade-text text-2xl font-bold text-white max-w-xl">
-        <p>无数个清晨,她早早起床,背着沉重的书包,在补习班与公交车之间奔波</p>
-        <img src="photo/e8083310c7ff20b61fd00ce908f2ce01.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
-
-      </div>
-    </section>
-    
-     
-  <section class="section ">
-    <div class="fade-text opacity-0 text-center max-w-xl">
-      <h1 class="text-4xl font-bold mb-4">他成功了</h1>
-      <p class="text-lg">他考上了名校,走上了别人眼中的"正轨"</p>
-      <img src="photo/dc2d7f1ad8a321adba20a1c01fcdb5f4.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
-    </div>
-  </section>
-
-
-   <section class="section ">
-    <div class="fade-text opacity-0 text-center max-w-xl">
-      <h1 class="text-4xl font-bold mb-4">他找到了体面的工作</h1>
-      <p class="text-lg">写字楼,咖啡,美好的未来生活在向她招手</p>
-      <img src="photo/f0a0ed38ead9d37b464a4299d5611987.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
-    </div>
-  </section>
-
-     <section class="section ">
-    <div class="fade-text opacity-0 text-center max-w-xl">
-      <p class="text-lg">但他,依然被城市拒之门外</p>
-      <img src="photo/e99fba8c601ff2cc7fe116dd6fc826d5.jpg" class="mx-auto mt-6 w-1/2 max-w-sm">
-    </div>
-  </section>
-
-
-  <!-- 第二幕 -->
-  <section class="section ">
-    <div class="fade-text opacity-0 max-w-xl text-center">
-      <div id="text-2xl font-bold"></div>
-    </div>
-    <div class="fade-text opacity-0 text-white max-w-md">
-      <p class="mt-2">租金过高,首付遥远,住房像一扇永远打不开的门</p>
-
-    </div><!-- 文字 -->
-  </section>
-
-  <section>
-  <div class="mt-8 md:mt-0 w-full md:w-[60%] lg:w-[65%] mx-auto">
-    <div id="chart1" class="fade-text w-full h-[600px]"></div>   <!-- chart-1 -->
-    </div>
-  </section>
-  
-  <!-- 第三幕 -->
-  <section class="section ">
-    <div class="fade-text opacity-0 max-w-xl text-center">
-      <h2 class="text-2xl font-bold">她的选择</h2>
-      <p>她要做出选择：住得远些更便宜，还是靠近市中心但租金飙升？</p>
-      <iframe height="1000px" width="100%" 
-    src="https://www.ons.gov.uk/visualisations/dvc3068/fig06/index.html">
-    </iframe> <!-- chart-2 -->
-    </div>
-    
-  </section>
-
-
-<!-- 屏幕1：努力了 -->
-<section class="min-h-screen flex items-center justify-center bg-[#121f40] text-white fade-text">
-  <div class="text-center px-4">
-    <h2 class="text-4xl font-bold mb-6">她努力了</h2>
-    <p class="text-lg">图书馆灯火通明的夜晚，一页一页啃下的书本。</p>
-    <img src="assets/study.svg" alt="努力学习" class="mx-auto mt-6 w-1/2 max-w-sm">
-  </div>
-</section>
-
-<!-- 屏幕2：成功了 -->
-<section class="min-h-screen flex items-center justify-center bg-[#121f40] text-white fade-text">
-  <div class="text-center px-4">
-    <h2 class="text-4xl font-bold mb-6">她成功了</h2>
-    <p class="text-lg">成为年级前1%的学生，赢得了奖学金与掌声。</p>
-    <img src="assets/graduation.svg" alt="毕业成功" class="mx-auto mt-6 w-1/2 max-w-sm">
-  </div>
-</section>
-
-<!-- 屏幕3：体面工作 -->
-<section class="min-h-screen flex items-center justify-center bg-[#121f40] text-white fade-text">
-  <div class="text-center px-4">
-    <h2 class="text-4xl font-bold mb-6">她找到了一份体面的工作</h2>
-    <p class="text-lg">朝九晚五、打卡办公楼。薪资稳定，梦想似乎照进现实。</p>
-    <img src="assets/office.svg" alt="办公室工作" class="mx-auto mt-6 w-1/2 max-w-sm">
-  </div>
-</section>
-
 
 
 <!-- --------------------------------------------- -->

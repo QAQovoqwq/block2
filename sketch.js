@@ -1,191 +1,66 @@
-const sketch1 = (p) => {
-  let mapData;
-  let rentData;
-  let hoveredBorough = null;
+let mapData;
+let centerXY;
 
-  p.preload = () => {
-    mapData = p.loadJSON("london.geojson");
-    rentData = p.loadJSON("london_rent_2025_one_bed.json");
-  };
+function preload() {
+  mapData = loadJSON("london.geojson");
+}
 
-  p.setup = () => {
-    let canvas = p.createCanvas(1000, 1000);
-    canvas.parent("chart1"); 
-    p.noLoop();
-  };
+function setup() {
+  let canvas = createCanvas(1000, 1000);
+  canvas.parent("chart1"); // 将画布嵌入到 HTML 中的 div#chart1 中
 
-  p.draw = () => {
-    p.background('#121f40');
-    hoveredBorough = null;
+  // 地图中心经纬度转换成 XY 坐标
+  const centerLonLat = [-0.1, 51.5];
+  centerXY = [
+    map(centerLonLat[0], -0.6, 0.3, -500, 500),
+    map(centerLonLat[1], 51.25, 51.7, 500, -500)
+  ];
 
-    p.translate(p.width / 2, p.height / 2);
-    p.scale(0.75);
+  noLoop(); // 初始不自动重绘
+}
 
-    for (let feature of mapData.features) {
-      if (isMouseNearFeature(feature)) {
-        hoveredBorough = feature.properties.name;
-        break;
-      }
-    }
+function draw() {
+  clear();
+  background("#121f40");
 
-    for (let feature of mapData.features) {
-      let borough = feature.properties.name;
-      if (borough === hoveredBorough) continue;
-      let rent = rentData[borough];
-      drawBorough(feature, rent, false);
-    }
+  translate(width / 2, height / 2);
 
-    for (let feature of mapData.features) {
-      if (feature.properties.name === hoveredBorough) {
-        let rent = rentData[hoveredBorough];
-        drawBorough(feature, rent, true);
-      }
-    }
+  let scrollRatio = constrain(window.scrollY / windowHeight, 0, 1); // 滚动进度 0~1
 
-    if (hoveredBorough) {
-      let label = `${hoveredBorough} - £${rentData[hoveredBorough]}`;
-      p.textSize(14);
-      let padding = 8;
-      let textW = p.textWidth(label);
-      let textH = 20;
-      let x = -p.width / 2 + 20;
-      let y = -p.height / 2 + 20;
-      p.fill(255);
-      p.stroke(200);
-      p.rect(x - padding / 2, y - padding / 2, textW + padding, textH + padding, 5);
-      p.noStroke();
-      p.fill(0);
-      p.text(label, x, y + textH / 2);
-    }
-  };
-
-  p.mouseMoved = () => {
-    p.redraw();
-  };
-
-  function drawPolygon(coords, scaleFactor = 1, customCenter = null) {
-    let centerX = 0, centerY = 0;
-    if (customCenter) {
-      [centerX, centerY] = customCenter;
-    } else {
-      for (let pt of coords) {
-        centerX += p.map(pt[0], -0.6, 0.3, -500, 500);
-        centerY += p.map(pt[1], 51.25, 51.7, 500, -500);
-      }
-      centerX /= coords.length;
-      centerY /= coords.length;
-    }
-
-    p.beginShape();
-    for (let pt of coords) {
-      let x = p.map(pt[0], -0.6, 0.3, -500, 500);
-      let y = p.map(pt[1], 51.25, 51.7, 500, -500);
-      x = centerX + (x - centerX) * scaleFactor;
-      y = centerY + (y - centerY) * scaleFactor;
-      p.vertex(x, y);
-    }
-    p.endShape(p.CLOSE);
-  }
-
-  function isMouseNearFeature(feature) {
+  for (let feature of mapData.features) {
     let coords = feature.geometry.type === "Polygon"
       ? feature.geometry.coordinates[0]
       : feature.geometry.coordinates[0][0];
 
-    let center = getPolygonCenter(coords);
-    let mx = p.mouseX - p.width / 2;
-    let my = p.mouseY - p.height / 2;
-    return p.dist(mx, my, center[0], center[1]) < 25;
+    let [cx, cy] = getPolygonCenter(coords);
+
+    let dx = cx - centerXY[0];
+    let dy = cy - centerXY[1];
+    let distance = sqrt(dx * dx + dy * dy);
+
+    let baseRadius = 10;
+    let maxRadius = 120;
+    let radius = baseRadius + scrollRatio * (maxRadius - baseRadius) * (1 - distance / 500);
+
+    // 颜色从黄 (#ffea00) 到红 (#d50000)
+    let distRatio = constrain(distance / 500, 0, 1);
+    let col = lerpColor(color("#ffea00"), color("#d50000"), distRatio);
+
+    noStroke();
+    fill(col);
+    ellipse(cx, cy, radius);
   }
+}
 
-  function getPolygonCenter(coords) {
-    let sumX = 0, sumY = 0;
-    for (let pt of coords) {
-      sumX += p.map(pt[0], -0.6, 0.3, -500, 500);
-      sumY += p.map(pt[1], 51.25, 51.7, 500, -500);
-    }
-    return [sumX / coords.length, sumY / coords.length];
+function getPolygonCenter(coords) {
+  let sumX = 0, sumY = 0;
+  for (let pt of coords) {
+    sumX += map(pt[0], -0.6, 0.3, -500, 500);
+    sumY += map(pt[1], 51.25, 51.7, 500, -500);
   }
+  return [sumX / coords.length, sumY / coords.length];
+}
 
-  function getColor(rent) {
-    if (!rent) return p.color('#eeeeee');
-    if (rent <= 1100) return p.color('#c6dbef');
-    else if (rent <= 1300) return p.color('#9ecae1');
-    else if (rent <= 1500) return p.color('#6baed6');
-    else if (rent <= 1700) return p.color('#4292c6');
-    else if (rent <= 1900) return p.color('#2171b5');
-    else return p.color('#084594');
-  }
-
-  function drawBorough(feature, rent, isHovered) {
-    let col = getColor(rent);
-    let scaleFactor = isHovered ? 1.6 : 1;
-
-    let allCoords = [];
-    if (feature.geometry.type === "Polygon") {
-      allCoords = feature.geometry.coordinates[0];
-    } else if (feature.geometry.type === "MultiPolygon") {
-      allCoords = feature.geometry.coordinates.flat(2);
-    }
-
-    let centerX = 0, centerY = 0;
-    for (let pt of allCoords) {
-      centerX += p.map(pt[0], -0.6, 0.3, -500, 500);
-      centerY += p.map(pt[1], 51.25, 51.7, 500, -500);
-    }
-    centerX /= allCoords.length;
-    centerY /= allCoords.length;
-    let center = [centerX, centerY];
-
-    if (isHovered) {
-      if (feature.geometry.type === "Polygon") {
-        drawShadowPolygon(feature.geometry.coordinates[0], scaleFactor, center);
-      } else {
-        for (let part of feature.geometry.coordinates) {
-          drawShadowPolygon(part[0], scaleFactor, center);
-        }
-      }
-    }
-
-    p.fill(isHovered ? p.lerpColor(col, p.color(255), 0.3) : col);
-    p.stroke(isHovered ? 'black' : 0);
-    p.strokeWeight(isHovered ? 1.5 : 0.2);
-
-    if (feature.geometry.type === "Polygon") {
-      drawPolygon(feature.geometry.coordinates[0], scaleFactor, center);
-    } else {
-      for (let part of feature.geometry.coordinates) {
-        drawPolygon(part[0], scaleFactor, center);
-      }
-    }
-  }
-
-  function drawShadowPolygon(coords, scaleFactor = 1, customCenter = null) {
-    let centerX = 0, centerY = 0;
-    if (customCenter) {
-      [centerX, centerY] = customCenter;
-    } else {
-      for (let pt of coords) {
-        centerX += p.map(pt[0], -0.6, 0.3, -500, 500);
-        centerY += p.map(pt[1], 51.25, 51.7, 500, -500);
-      }
-      centerX /= coords.length;
-      centerY /= coords.length;
-    }
-
-    p.fill(0, 50);
-    p.noStroke();
-    p.beginShape();
-    for (let pt of coords) {
-      let x = p.map(pt[0], -0.6, 0.3, -500, 500);
-      let y = p.map(pt[1], 51.25, 51.7, 500, -500);
-      x = centerX + (x - centerX) * scaleFactor + 5;
-      y = centerY + (y - centerY) * scaleFactor + 5;
-      p.vertex(x, y);
-    }
-    p.endShape(p.CLOSE);
-  }
-};
-
-// 创建实例
-new p5(sketch1);
+function windowScrolled() {
+  redraw(); // 滚动时重绘
+}
