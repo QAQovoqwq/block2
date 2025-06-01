@@ -236,3 +236,36 @@ margin-right: auto;
   width: 20px; /* 或其他固定值或百分比 */
   pointer-events: none; /* 可选，确保不拦截鼠标 */
 }
+
+#chart5-2{
+    width: 100%;
+    max-width: 600px;
+    height: 500px;
+    margin: auto;
+    background-image: url('photo/chart5-2.png');
+    background-size: cover;
+    background-position: center;
+    }
+
+
+    body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }

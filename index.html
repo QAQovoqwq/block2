@@ -11,6 +11,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
     <link rel="stylesheet" href="style.css">
 
 
@@ -536,8 +540,98 @@ map.on('load', () => {
 </script>
 
 <!-- part5 -->
+  <section class="section chat" id="bubble5-1">
+    <div class="bubble chat-block">于是她查询了更多发现那些租金最高的地方的,收入却常年没变</div>
+  </section>
+  <div id="chart5-2"></div>
 
+  <script>
+    const chartDom = document.getElementById('chart5-2');
+    const myChart = echarts.init(chartDom);
 
+    const option = {
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['租金（£）', '月薪（£）']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['2013','2014','2015','2016','2017','2018','2019']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: 'rent（£）',
+          type: 'line',
+          data: [1668, 1798, 1928, 2102, 2058, 1925, 2210],
+          smooth: true,
+          lineStyle: {
+            width: 3
+          }
+        },
+        {
+          name: 'salary（£）',
+          type: 'line',
+          data: [3808, 3850, 3875, 3900, 3925, 3950, 3967],
+          smooth: true,
+          lineStyle: {
+            width: 3
+          }
+        }
+      ]
+    };
+
+    myChart.setOption(option);
+  </script>
+
+<!-- part6 -->
+
+<!-- part7 -->
+ <div class="section" style="background:#ffffff">
+    <div class="title">伦敦人口正在增长</div>
+    <canvas id="populationChart"></canvas>
+</div>
+
+<script>
+    const populationCtx = document.getElementById('populationChart').getContext('2d');
+    const populationChart = new Chart(populationCtx, {
+        type: 'line',
+        data: {
+            labels: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+            datasets: [{
+                label: '人口总数',
+                data: [58892514, 59182170, 59456123, 59724394, 59988692, 60268457, 60609153, 61011788, 61507608, 62041708, 62759456, 63285145, 63710843, 64138721, 64619493, 65088058, 65607141, 65965992, 66288927, 66630707, 66744067, 66983488, 67603461],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: '2000-2022年英国人口增长趋势'
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
 
 <!-- --------------------------------------------- -->
   <script> 

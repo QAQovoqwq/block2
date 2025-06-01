@@ -1,0 +1,62 @@
+[
+  {
+    "year": 2013,
+    "annual_salary": 45700,
+    "monthly_salary": 3808
+  },
+  {
+    "year": 2014,
+    "annual_salary": 46200,
+    "monthly_salary": 3850
+  },
+  {
+    "year": 2015,
+    "annual_salary": 46500,
+    "monthly_salary": 3875
+  },
+  {
+    "year": 2016,
+    "annual_salary": 46800,
+    "monthly_salary": 3900
+  },
+  {
+    "year": 2017,
+    "annual_salary": 47100,
+    "monthly_salary": 3925
+  },
+  {
+    "year": 2018,
+    "annual_salary": 47400,
+    "monthly_salary": 3950
+  },
+  {
+    "year": 2019,
+    "annual_salary": 47600,
+    "monthly_salary": 3967
+  },
+  {
+    "year": 2020,
+    "annual_salary": 47000,
+    "monthly_salary": 3917
+  },
+  {
+    "year": 2021,
+    "annual_salary": 47800,
+    "monthly_salary": 3983
+  },
+  {
+    "year": 2022,
+    "annual_salary": 47200,
+    "monthly_salary": 3933
+  },
+  {
+    "year": 2023,
+    "annual_salary": 47300,
+    "monthly_salary": 3942
+  },
+  {
+    "year": 2024,
+    "annual_salary": 47500,
+    "monthly_salary": 3958
+  }
+]
