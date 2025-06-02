@@ -1,8 +1,13 @@
 
 body {
 font-family: sans-serif;
-background-color: #121f40; 
-color: white;              
+/* background-color:#F5F5DC;  */
+color: black;     
+background-image: url('img/background1-2.png'); /* 替换路径 */
+background-size: cover;         /* 图片自动缩放填满屏幕 */
+background-position: center;    /* 居中对齐 */
+background-repeat: no-repeat;   /* 不重复平铺 */
+background-attachment: fixed;         
 }
 html, body {
 margin: 0;
@@ -141,12 +146,14 @@ z-index: 10;
 }
 
 /* 位置示例 */
-.img1 { top: -300px; left: 50%; }
-.img2 { bottom: -300px; right: -300px; }
-.img3 { bottom: -400px; left:0px; transform: translateX(-50%) scale(0.5); }
-.img4 { top: -300px; left: -300px; }
-.img5 { top: -300px; right: -300px; }
-.img6 { bottom: -400px; left: 60%; transform: translateX(-50%) scale(0.5); }
+.img1 { top: -300px; left: 50%;width: 200% }
+.img2 { bottom: -500px; right: -1000px; width: 200%}
+.img3 { bottom: -400px; left:-300px; transform: translateX(-50%) scale(0.5); width: 200%}
+.img4 { top: -300px; left: -300px; width: 200%}
+
+.img4-2 { top: -300px; left: -600px; width: 200%}
+.img5 { top: -300px; right: -900px; width: 200%}
+.img6 { bottom: -400px; left: 60%; transform: translateX(-50%) scale(0.5); width: 200%}
 
 /* 显示动画类 */
 .float-image.show {
@@ -176,7 +183,6 @@ margin-right: auto;
 #city-scene {
   position: relative;
   height: 120vh;
-  background: #121f40;
   overflow: hidden;
 }
 
@@ -188,14 +194,14 @@ margin-right: auto;
   justify-content: center;
 }
 #girl {
-  width: 100%;
-  top: 50%;
+  width: 50%;
+  top: 0%;
 }
 
 .buildings {
   position: absolute;
-  width: 100%;
-  top: 80%;
+  width: 50%;
+  top: 20%;
   display: flex;
   justify-content: space-between;
   padding: 0 5%;
@@ -223,7 +229,7 @@ margin-right: auto;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5; /* 可根据需求设定在canvas或地图之上 */
-  width: 10px; /* 或其他固定值或百分比 */
+  width: 50px; /* 或其他固定值或百分比 */
   pointer-events: none; /* 可选，确保不拦截鼠标 */
 }
 
@@ -231,9 +237,19 @@ margin-right: auto;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-30%, -50%);
+  transform: translate(30%, 0%);
   z-index: 5; /* 可根据需求设定在canvas或地图之上 */
   width: 20px; /* 或其他固定值或百分比 */
+  pointer-events: none; /* 可选，确保不拦截鼠标 */
+}
+
+#center-bubble4-3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, -300%);
+  z-index: 5; /* 可根据需求设定在canvas或地图之上 */
+  width: 30px; /* 或其他固定值或百分比 */
   pointer-events: none; /* 可选，确保不拦截鼠标 */
 }
 
@@ -242,30 +258,50 @@ margin-right: auto;
     max-width: 600px;
     height: 500px;
     margin: auto;
-    background-image: url('photo/chart5-2.png');
+    background-image: url('img/5-2.png');
     background-size: cover;
     background-position: center;
+    
     }
 
+canvas {
+    max-width: 100%;
+    height: auto;
+}
 
-    body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
-        .section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        canvas {
-            max-width: 100%;
-            height: auto;
-        }
+.text-center-box {
+  max-width: 700px;        /* ✅ 最大宽度 */
+  margin: 0 auto;          /* ✅ 水平居中 */
+  padding: 20px;           /* 内边距，美观 */
+  text-align: justify;     /* 两端对齐，更整齐 */
+  font-size: 18px;         /* 可选：文字大小 */
+  line-height: 1.8;        /* 可选：行距 */
+}
+
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.bg-image {
+  width: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.bubble-overlay {
+  position: absolute;
+  top: 20%; /* 距顶部20% */
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 1.2rem;
+  max-width: 80%;
+  text-align: center;
+  z-index: 2; /* 确保在图片上方 */
+}

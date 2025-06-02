@@ -76,14 +76,15 @@
 
 <!-- part1 -->
   <div id="character">
-    <img src="IMG_0407.GIF"  alt="character" >
-    <img src="photo/hat.png" class="float-image img1 group1" />
-    <img src="photo/plant.png" class="float-image img2 group1" />
-    <img src="photo/money.png" class="float-image img3 group1" />
+    <img src="img/main.png"  alt="character" style="width: 200%;max-width: none;">
+    <img src="img/1-1-1.png" class="float-image img1 group1" />
+    <img src="img/1-1-2.png" class="float-image img2 group1" />
+    <img src="img/1-1-3.png" class="float-image img3 group1" />
 
-    <img src="photo/london.png" class="float-image img4 group2" />
-    <img src="photo/pen.png" class="float-image img5 group2" />
-    <img src="photo/pound.png" class="float-image img6 group2" />
+    <img src="img/1-2-1.png" class="float-image img4 group2" />
+    <!-- <img src="img/1-2-1-2.png" class="float-image img4-2 group2" /> -->
+    <img src="img/1-2-1-2.png" class="float-image img5 group2" />
+    <img src="img/1-2-3.png" class="float-image img6 group2" />
   </div>
 
   
@@ -244,10 +245,14 @@
 <section class="section">
   <section class="chat" id="bubble2-1">
     <div class="bubble chat-block">她打开租房平台,看到价格密密麻麻分布在地图上</div>
+
   </section>
   
   <div id="map-container">
     <div id="map"></div>
+      <div style="font-size: 20px;"><br><br><br><br>本图展示了伦敦不同区域中，单人公寓的月租金中位数（数据来源：https://www.gov.uk/government/statistics/private-rental-market-statistics）。
+      可以看出，即使是 Zone 3 以外的区域，租金也远高于 Sophie 每月收入的 30%,这是一条普遍认定的“租金负担警戒线”。
+      图中的颜色深浅的不同强调了收入与租金之间的断层，揭示出“租不起”不仅是感觉，而是一个被系统性定价排除的事实。</div>
   </div>
 </section>
 
@@ -311,23 +316,28 @@ map.on('load', () => {
   <!-- part3 -->
   <section class="section chat" id="bubble3-1">
     <div class="bubble chat-block">而她的收入是￡1850/月/最多用其中30%用于交房租</div>
+    <div class="bubble chat-block">于是他考虑住的更远,这样他才付得起</div>
   </section>
+
+
 
   <section id="city-scene">
 
     <div class="buildings top-layer">
-      <img src="photo/building-left-top.png" class="building building-left-top building-left" />
-      <img src="photo/building-right-top.png" class="building building-right-top building-right" />
+      <img src="img/3-left-top.png" class="building building-left-top building-left" />
+      <img src="img/3-right-top.png" class="building building-right-top building-right" />
     </div>
 
     <div id="girl-container">
-      <img src="photo/girlback.png" id="girl" />
+      <img src="img/3-main.png" id="girl" />
     </div>
 
     <div class="buildings bottom-layer">
-      <img src="photo/building-bottom-left.png" class="building building-bottom-left building-left" />
-      <img src="photo/building-bottom-right.png" class="building building-bottom-right building-right" />
+      <img src="img/3-left-bottom.png" class="building building-bottom-left building-left" />
+      <img src="img/3-right-bottom.png" class="building building-bottom-right building-right" />
     </div>
+  
+
   </section>
 
 
@@ -370,12 +380,14 @@ map.on('load', () => {
     <div id="map2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
     <div id="frame-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 8px solid white; z-index: 1; pointer-events: none;"></div>
     <canvas id="circle-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none;"></canvas>
-    <img id="center-photo" src="photo/4-2.png" >
-    <img id="center-bubble4-2" src="photo/bubble4-2.png" >
+    <img id="center-photo" src="img/4-2-2.png" >
+    <img id="center-bubble4-2" src="img/bubble4-2-1.png" >
+    <img id="center-bubble4-3" src="img/bubble4-2-2.png" >
+    </div>
+    <div class="text-center-box">图中圆圈可视化了伦敦不同区域的平均通勤距离（数据来源：Travel to work, England and Wales Census 2021）。
+  可以看到，市中心区域虽然租金昂贵，但通勤时间较短；而租金稍低的外围区域，其通勤时间急剧增长。
+  也进一步说明 Sophie 面临的现实抉择：她可以住得起远离市中心的房子，但代价是每天高强度的通勤——这将侵蚀她的时间、精力与生活质量，而每天的大部分时间在交通上。</div>
 
-    <!-- <div id="center-bubble4-2" class="bubble ">这只是我的问题吗?</div> -->
-
-</div>
 
   <section id="bubble4-2">
     <div class="chat-block"></div>
@@ -543,7 +555,13 @@ map.on('load', () => {
   <section class="section chat" id="bubble5-1">
     <div class="bubble chat-block">于是她查询了更多发现那些租金最高的地方的,收入却常年没变</div>
   </section>
-  <div id="chart5-2"></div>
+  <div id="chart5-2" ></div>
+
+  <div class="text-center-box"> 本图展示了2013--2019年间伦敦房租中位数与中位工资的增长趋势（数据来源：https://www.ons.gov.uk/）。
+  折线图清晰可见，房租上涨速度大于工资增幅。即使工资每年略有增长，房租却以更快的速度将人“推离”城市中心。
+  Sophie 开始明白，住房危机并非个人选择的问题，而是一场系统设计下的资源分配倾斜。</div>
+
+
 
   <script>
     const chartDom = document.getElementById('chart5-2');
@@ -570,7 +588,7 @@ map.on('load', () => {
           data: [1668, 1798, 1928, 2102, 2058, 1925, 2210],
           smooth: true,
           lineStyle: {
-            width: 3
+            width: 5
           }
         },
         {
@@ -579,7 +597,7 @@ map.on('load', () => {
           data: [3808, 3850, 3875, 3900, 3925, 3950, 3967],
           smooth: true,
           lineStyle: {
-            width: 3
+            width: 5
           }
         }
       ]
@@ -591,10 +609,19 @@ map.on('load', () => {
 <!-- part6 -->
 
 <!-- part7 -->
- <div class="section" style="background:#ffffff">
-    <div class="title">伦敦人口正在增长</div>
-    <canvas id="populationChart"></canvas>
-</div>
+  <section class="section chat" id="bubble5-1">
+    <div class="bubble chat-block">人口的增多也增加了房屋的需求量</div>
+  </section>
+
+  <div class="section" >
+    <canvas id="populationChart" style="width: 100%; max-width: 900px; height: auto;"></canvas>
+  </div>
+
+  <div class="text-center-box">除了经济压力，城市人口结构与住房政策也是问题的深层动因。随着伦敦人口增长，尤其是外来移民（包括部分非法居留者）的持续涌入，城市基础设施与住房供应之间的失衡日益严重（数据来源：00000000）。
+同时，这与过去00000年伦敦平均工资增长幅度形成鲜明对比。民众赚取的薪水不足以平衡自己的生活和工作地段生活。
+Sophie 不再只是一个找不到住处的女孩，她的困境背后，是一个排他性加剧的城市逻辑在悄然运行。</div>
+
+
 
 <script>
     const populationCtx = document.getElementById('populationChart').getContext('2d');
@@ -632,6 +659,20 @@ map.on('load', () => {
         }
     });
 </script>
+<div style="height: 50vh;"></div><!--半页空白-->
+<!-- part8 -->
+
+<section class="section" id="bubble8-1">
+  <div class="image-container">
+    <img src="img/8-1.png" class="bg-image" />
+    <div class="bubble-overlay">
+      我开始意识到，问题不只是我找不到房子，而是城市早就不是为我们这些人设计的了
+    </div>
+  </div>
+</section>
+
+<!-- final -->
+
 
 <!-- --------------------------------------------- -->
   <script> 
