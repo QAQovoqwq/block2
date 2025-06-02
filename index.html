@@ -26,53 +26,8 @@
     href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   
-  <!--style.css-->
-
-
   </head>
   <body>
-
-    <!--
-     <div class=" " id="map" style="height: 60vh; width: 60vw; margin: 0 auto;"></div>   绿地地图大小 -->
-    <!--绿地地图缩放 const map = L.map('map').setView([51.505, -0.09], X );-->
-  <!--
-  <script>
-    const map = L.map('map').setView([51.505, -0.09], 10); 
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    fetch('london_boroughs_final_with_named_green.geojson')
-      .then(res => res.json())
-      .then(data => {
-        L.geoJSON(data, {
-          style: feature => ({
-            fillColor: getColor(feature.properties.percent_green_blue),
-            weight: 1,
-            color: 'white',
-            fillOpacity: 0.7
-          }),
-          onEachFeature: (feature, layer) => {
-            const name = feature.properties.name;
-            const green = feature.properties.percent_green_blue;
-            const rent = feature.properties.avg_rent;
-            layer.bindPopup(`<b>${name}</b><br>绿化+蓝地：${green}%<br>租金：£${rent}`);
-          }
-        }).addTo(map);
-      });
-
-    function getColor(value) {
-      return value > 60 ? '#1a9850' :
-             value > 50 ? '#66bd63' :
-             value > 40 ? '#a6d96a' :
-             value > 30 ? '#d9ef8b' :
-             value > 20 ? '#fee08b' :
-             value > 10 ? '#fdae61' :
-                          '#f46d43';
-    }
-  </script>
--->
 
 <!-- part1 -->
   <div id="character">
@@ -91,43 +46,43 @@
 
 
   <section class="section chat" id="bubble1" >
-    <div class="bubble chat-block">她叫Sophie</div>
+    <div class="bubble chat-block">Her name is Sophie.</div>
   </section>
 
   <section class="section chat" id="bubble2">
-    <div class="bubble chat-block">她不是失败者</div>
+    <div class="bubble chat-block">She is not a loser.</div>
   </section>
 
   <section class="section chat" id="bubble3">
-    <div class="bubble chat-block">她做了她该做的一切</div>
+    <div class="bubble chat-block">She did everything she should do</div>
   </section>
 
   <section class="section chat" id="bubble4">
-    <div class="bubble chat-block">她在郊区长大 家里不富裕父母关系紧张</div>
+    <div class="bubble chat-block">She grew up in the suburbs. Her family was not wealthy and her parents had a tense relationship</div>
   </section>
 
   <section class="section chat" id="bubble5">
-    <div class="bubble chat-block">他考上了一所好大学 成绩稳定 努力申请奖学金</div>
+    <div class="bubble chat-block">She was admitted to a good university.<br> I have stable grades and am striving to apply for scholarships</div>
   </section>
 
   <section class="section chat" id="bubble6">
-    <div class="bubble chat-block">暑假打工也没有耽误论文</div>
+    <div class="bubble chat-block">Working during the summer vacation didn't delay the thesis either</div>
   </section>
 
   <section class="section chat" id="bubble7">
-    <div class="bubble chat-block">他毕业后被一家London的公司录用</div>
+    <div class="bubble chat-block">She was recruited by a company in London after graduation</div>
   </section>
 
   <section class="section chat" id="bubble8">
-    <div class="bubble chat-block">一份她梦想中的UX设计师的工作</div>
+    <div class="bubble chat-block">A job as a UX designer of her dreams</div>
   </section>
 
   <section class="section chat" id="bubble9">
-    <div class="bubble chat-block">工资不高,但比老家已经好太多了</div>
+    <div class="bubble chat-block">The salary is not high, but it's much better than that in my hometown</div>
   </section>
 
   <section class="section chat" id="bubble10">
-    <div class="bubble chat-block">现在,问题只剩下一个,她要住哪里</div>
+    <div class="bubble chat-block">Now, there is only one question left: Where is she going to live</div>
   </section>
     
   <script>
@@ -244,15 +199,16 @@
 <!-- part2 -->
 <section class="section">
   <section class="chat" id="bubble2-1">
-    <div class="bubble chat-block">她打开租房平台,看到价格密密麻麻分布在地图上</div>
+    <div class="bubble chat-block">She opened the rental platform and saw that the prices were densely distributed on the map</div>
 
   </section>
   
   <div id="map-container">
     <div id="map"></div>
-      <div style="font-size: 20px;"><br><br><br><br>本图展示了伦敦不同区域中，单人公寓的月租金中位数（数据来源：https://www.gov.uk/government/statistics/private-rental-market-statistics）。
-      可以看出，即使是 Zone 3 以外的区域，租金也远高于 Sophie 每月收入的 30%,这是一条普遍认定的“租金负担警戒线”。
-      图中的颜色深浅的不同强调了收入与租金之间的断层，揭示出“租不起”不仅是感觉，而是一个被系统性定价排除的事实。</div>
+      <div style="font-size: 20px;"><br><br><br><br>This chart shows the median monthly rent of single-person apartments in different areas of London
+        (Data source:https://www.gov.uk/government/statistics/private-rental-market-statistics)。
+      It can be seen that even in areas outside Zone 3, the rent is much higher than 30% of Sophie's monthly income. This is a commonly recognized "rent burden warning line".
+      The varying shades of color in the picture emphasize the gap between income and rent, revealing that "unaffordable rent" is not merely a feeling but a fact excluded by systematic pricing.</div>
   </div>
 </section>
 
@@ -315,8 +271,8 @@ map.on('load', () => {
 
   <!-- part3 -->
   <section class="section chat" id="bubble3-1">
-    <div class="bubble chat-block">而她的收入是￡1850/月/最多用其中30%用于交房租</div>
-    <div class="bubble chat-block">于是他考虑住的更远,这样他才付得起</div>
+    <div class="bubble chat-block">Her income is £1,850 per month, and she spends at most 30% of it on rent</div>
+    <div class="bubble chat-block">So she considered living further away so that she could afford it</div>
   </section>
 
 
@@ -372,7 +328,7 @@ map.on('load', () => {
 
 
   <section class="chat" id="bubble4-1">
-    <div class="bubble chat-block">代价是什么?<br>每天通勤2h+地铁+孤独感</div>
+    <div class="bubble chat-block">What is the cost?<br>Commuting for 2 hours every day, taking the subway and feeling lonely</div>
   </section>
 
 
@@ -384,9 +340,12 @@ map.on('load', () => {
     <img id="center-bubble4-2" src="img/bubble4-2-1.png" >
     <img id="center-bubble4-3" src="img/bubble4-2-2.png" >
     </div>
-    <div class="text-center-box">图中圆圈可视化了伦敦不同区域的平均通勤距离（数据来源：Travel to work, England and Wales Census 2021）。
-  可以看到，市中心区域虽然租金昂贵，但通勤时间较短；而租金稍低的外围区域，其通勤时间急剧增长。
-  也进一步说明 Sophie 面临的现实抉择：她可以住得起远离市中心的房子，但代价是每天高强度的通勤——这将侵蚀她的时间、精力与生活质量，而每天的大部分时间在交通上。</div>
+    <div class="text-center-box">The circles in the figure visualize the average commuting distances of different areas in London
+      (Data source:Travel to work, England and Wales Census 2021)。
+  It can be seen that although the rent in the city center area is expensive, 
+  the commuting time is relatively short. In the peripheral areas with slightly lower rents, the commuting time has increased sharply.
+This further explains the realistic choice Sophie is facing: she can afford to live in a house far from the city center, 
+but at the cost of a high-intensity daily commute - which will erode her time, energy and quality of life, and most of her time each day is spent on transportation.</div>
 
 
   <section id="bubble4-2">
@@ -553,13 +512,14 @@ map.on('load', () => {
 
 <!-- part5 -->
   <section class="section chat" id="bubble5-1">
-    <div class="bubble chat-block">于是她查询了更多发现那些租金最高的地方的,收入却常年没变</div>
+    <div class="bubble chat-block">So she looked up more and found that the income in those places with the highest rent remained unchanged all year round</div>
   </section>
   <div id="chart5-2" ></div>
 
-  <div class="text-center-box"> 本图展示了2013--2019年间伦敦房租中位数与中位工资的增长趋势（数据来源：https://www.ons.gov.uk/）。
-  折线图清晰可见，房租上涨速度大于工资增幅。即使工资每年略有增长，房租却以更快的速度将人“推离”城市中心。
-  Sophie 开始明白，住房危机并非个人选择的问题，而是一场系统设计下的资源分配倾斜。</div>
+  <div class="text-center-box">This chart shows the growth trends of the median rent and median wage in London from 2013 to 2019(Data source:https://www.ons.gov.uk/)。
+  The line graph clearly shows that the increase rate of rent is greater than that of wages. Even though wages increase slightly every year, 
+  rents are pushing people away from the city center at a faster rate.
+  Sophie began to understand that the housing crisis was not a matter of personal choice, but rather a tilt in resource allocation under systematic design.</div>
 
 
 
@@ -572,7 +532,7 @@ map.on('load', () => {
         trigger: 'axis'
       },
       legend: {
-        data: ['租金（£）', '月薪（£）']
+        data: ['Rent（£）', 'Salary（£）']
       },
       xAxis: {
         type: 'category',
@@ -610,16 +570,19 @@ map.on('load', () => {
 
 <!-- part7 -->
   <section class="section chat" id="bubble5-1">
-    <div class="bubble chat-block">人口的增多也增加了房屋的需求量</div>
+    <div class="bubble chat-block">The increase in population has also increased the demand for houses</div>
   </section>
 
   <div class="section" >
     <canvas id="populationChart" style="width: 100%; max-width: 900px; height: auto;"></canvas>
   </div>
 
-  <div class="text-center-box">除了经济压力，城市人口结构与住房政策也是问题的深层动因。随着伦敦人口增长，尤其是外来移民（包括部分非法居留者）的持续涌入，城市基础设施与住房供应之间的失衡日益严重（数据来源：00000000）。
-同时，这与过去00000年伦敦平均工资增长幅度形成鲜明对比。民众赚取的薪水不足以平衡自己的生活和工作地段生活。
-Sophie 不再只是一个找不到住处的女孩，她的困境背后，是一个排他性加剧的城市逻辑在悄然运行。</div>
+  <div class="text-center-box">Apart from economic pressure, the urban population structure and housing policies are also the deep-seated causes of the problem. 
+  With the growth of London's population, especially the continuous influx of immigrants (including some illegal residents), 
+  the imbalance between urban infrastructure and housing supply has become increasingly serious (Data source: https://data.london.gov.uk/demography/).
+Meanwhile, this contrasts sharply with the average wage growth rate in London over the past 7 years. 
+The salaries earned by the public are not sufficient to balance their lives and those in the workplace.
+Sophie is no longer just a girl who can't find a place to live. Behind her predicament, a city logic that intensifies exclusivity is quietly at work.</div>
 
 
 
@@ -630,7 +593,7 @@ Sophie 不再只是一个找不到住处的女孩，她的困境背后，是一�
         data: {
             labels: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
             datasets: [{
-                label: '人口总数',
+                label: 'Total population',
                 data: [58892514, 59182170, 59456123, 59724394, 59988692, 60268457, 60609153, 61011788, 61507608, 62041708, 62759456, 63285145, 63710843, 64138721, 64619493, 65088058, 65607141, 65965992, 66288927, 66630707, 66744067, 66983488, 67603461],
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -644,7 +607,7 @@ Sophie 不再只是一个找不到住处的女孩，她的困境背后，是一�
             plugins: {
                 title: {
                     display: true,
-                    text: '2000-2022年英国人口增长趋势'
+                    text: 'The population growth trend of the United Kingdom from 2000 to 2022'
                 }
             },
             scales: {
@@ -666,7 +629,7 @@ Sophie 不再只是一个找不到住处的女孩，她的困境背后，是一�
   <div class="image-container">
     <img src="img/8-1.png" class="bg-image" />
     <div class="bubble-overlay">
-      我开始意识到，问题不只是我找不到房子，而是城市早就不是为我们这些人设计的了
+      I began to realize that the problem was not just that I couldn't find a house,<br>but that cities were no longer designed for people like us
     </div>
   </div>
 </section>

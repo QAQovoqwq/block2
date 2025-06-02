@@ -68,10 +68,12 @@ opacity: 1;
 
 .chat {
 max-width: 700px;
-padding-left: 24px;
+padding-left: 240px;
 display: flex;
 flex-direction: column;
 align-items: flex-start;  /* ✅ 所有子元素靠左 */
+
+
 }
 .chat-block {
 display: flex;
@@ -79,6 +81,9 @@ align-items: flex-start;
 margin-bottom: 1.5rem;
 opacity: 0;
 transform: translateY(30px);
+
+ font-size:20px;
+  font-weight: bold; 
 }
 .avatar {
 font-size: 28px;
@@ -229,7 +234,7 @@ margin-right: auto;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5; /* 可根据需求设定在canvas或地图之上 */
-  width: 50px; /* 或其他固定值或百分比 */
+  width: 50px; /* 或其她固定值或百分比 */
   pointer-events: none; /* 可选，确保不拦截鼠标 */
 }
 
@@ -239,7 +244,7 @@ margin-right: auto;
   left: 50%;
   transform: translate(30%, 0%);
   z-index: 5; /* 可根据需求设定在canvas或地图之上 */
-  width: 20px; /* 或其他固定值或百分比 */
+  width: 20px; /* 或其她固定值或百分比 */
   pointer-events: none; /* 可选，确保不拦截鼠标 */
 }
 
@@ -249,7 +254,7 @@ margin-right: auto;
   left: 50%;
   transform: translate(-150%, -300%);
   z-index: 5; /* 可根据需求设定在canvas或地图之上 */
-  width: 30px; /* 或其他固定值或百分比 */
+  width: 30px; /* 或其她固定值或百分比 */
   pointer-events: none; /* 可选，确保不拦截鼠标 */
 }
 
@@ -286,9 +291,10 @@ canvas {
 }
 
 .bg-image {
-  width: 100%;
+  height: 100%;
   display: block;
   z-index: 0;
+  margin: 0 auto
 }
 
 .bubble-overlay {
